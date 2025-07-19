@@ -4,21 +4,21 @@
  * UCB Transport System
  */
 
-// Configuration de la base de données
-define('DB_HOST', 'localhost');
-define('DB_PORT', 3306); // ✅ Port ajouté ici
-define('DB_USER', 'root');
-define('DB_PASS', '1234');
-define('DB_NAME', 'ucb_transport');
+// Lecture des variables d'environnement (avec valeurs par défaut)
+$db_host = getenv('DB_HOST') ?: 'localhost';
+$db_port = getenv('DB_PORT') ?: 3306;
+$db_user = getenv('DB_USER') ?: 'root';
+$db_pass = getenv('DB_PASS') ?: '';
+$db_name = getenv('DB_NAME') ?: 'ucb_transport';
 
 // Connexion MySQL avec gestion d'erreurs
 try {
-    // Ajout du port dans le constructeur mysqli
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
-    
+    // Note : $db_port doit être un int
+    $conn = new mysqli($db_host, $db_user, $db_pass, $db_name, (int)$db_port);
+
     // Définir le charset pour éviter les problèmes d'encodage
     $conn->set_charset("utf8mb4");
-    
+
     // Vérifier la connexion
     if ($conn->connect_error) {
         throw new Exception("Erreur de connexion : " . $conn->connect_error);
