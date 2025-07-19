@@ -6,13 +6,15 @@
 
 // Configuration de la base de données
 define('DB_HOST', 'localhost');
+define('DB_PORT', 3306); // ✅ Port ajouté ici
 define('DB_USER', 'root');
 define('DB_PASS', '1234');
 define('DB_NAME', 'ucb_transport');
 
 // Connexion MySQL avec gestion d'erreurs
 try {
-    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME);
+    // Ajout du port dans le constructeur mysqli
+    $conn = new mysqli(DB_HOST, DB_USER, DB_PASS, DB_NAME, DB_PORT);
     
     // Définir le charset pour éviter les problèmes d'encodage
     $conn->set_charset("utf8mb4");
